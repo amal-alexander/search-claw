@@ -1858,6 +1858,7 @@
             <button class="email-btn" onclick="joinWaitlist()">Join Waitlist</button>
         </div>
         <p id="waitlistMsg" style="margin-top:16px;font-size:13px;color:var(--green);height:20px;"></p>
+        <p style="margin-top:4px;font-size:11px;color:rgba(232,232,255,.2)">Or reach out directly: <a href="mailto:amalalex95@gmail.com" style="color:var(--accent2);text-decoration:none">amalalex95@gmail.com</a></p>
     </section>
 
     <!-- FOOTER -->
@@ -1960,9 +1961,22 @@
         function joinWaitlist() {
             const email = document.getElementById('emailInput').value.trim();
             const msg = document.getElementById('waitlistMsg');
-            if (!email || !email.includes('@')) { msg.textContent = 'Please enter a valid email.'; msg.style.color = '#ff3d9a'; return }
-            msg.textContent = 'You are on the list! We will notify you at launch.'; msg.style.color = 'var(--green)';
-            document.getElementById('emailInput').value = '';
+            const founderEmail = 'amalalex95@gmail.com';
+            
+            if (!email || !email.includes('@')) { 
+                msg.textContent = 'Please enter a valid email.'; 
+                msg.style.color = '#ff3d9a'; 
+                return; 
+            }
+            
+            const subject = encodeURIComponent('SEO Claw - Waitlist Early Access');
+            const body = encodeURIComponent(`Hi Amal,\n\nI would like to join the waitlist for SEO Claw.\n\nMy email: ${email}\n\nLooking forward to the launch!`);
+            
+            // Open user's email client
+            window.location.href = `mailto:${founderEmail}?subject=${subject}&body=${body}`;
+            
+            msg.textContent = 'Opening your email client...'; 
+            msg.style.color = 'var(--accent2)';
         }
         document.getElementById('emailInput').addEventListener('keydown', e => { if (e.key === 'Enter') joinWaitlist() });
 
